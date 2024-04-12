@@ -1,5 +1,5 @@
 # Text2HOI
-Official code of Text2HOI: Text-guided 3D Motion Generation for Hand-Object Interaction in CVPR 2024 
+Official code of Text2HOI: Text-guided 3D Motion Generation for Hand-Object Interaction in CVPR 2024<br>
 [Arxiv paper](https://arxiv.org/abs/2404.00562) / [Project page](.)
 
 ## Data

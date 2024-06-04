@@ -56,9 +56,6 @@ GRAB objects have so many vertiecs. So we reduce the number of vertices to 4,000
 python preprocessing_grab_object.py
 ```
 
-
-[Text description for Arctic](https://drive.google.com/file/d/18AtaBpQa9Z9pnQTkjObgOHjSSijT59gz/view?usp=sharing)
-
 ## Checkpoints (Coming soon)
 ```
 ```
@@ -72,3 +69,6 @@ source scripts/install.sh
 ```
 source scripts/install.sh
 ```
+
+## For Future Work
+[Text description for Arctic](https://drive.google.com/file/d/18AtaBpQa9Z9pnQTkjObgOHjSSijT59gz/view?usp=sharing)

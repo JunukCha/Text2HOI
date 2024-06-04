@@ -8,6 +8,8 @@ Official code of Text2HOI: Text-guided 3D Motion Generation for Hand-Object Inte
 [ARCTIC](https://github.com/zc-alexfan/arctic/blob/master/docs/data/README.md#download-full-arctic). 
 [MANO](https://mano.is.tue.mpg.de/).
 
+[obj.pkl](https://drive.google.com/drive/folders/1-bnfGdKPb-iqkjrO7kIJe72BmqUqDzyI?usp=sharing)
+
 ```
 data
 ├─ h2o

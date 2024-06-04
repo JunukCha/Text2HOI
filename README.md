@@ -59,16 +59,16 @@ python preprocessing_grab_object.py
 
 [Text description for Arctic](https://drive.google.com/file/d/18AtaBpQa9Z9pnQTkjObgOHjSSijT59gz/view?usp=sharing)
 
-## Checkpoints (Comming soon)
+## Checkpoints (Coming soon)
 ```
 ```
 
-## Installation (Comming soon)
+## Installation (Coming soon)
 ```
 source scripts/install.sh
 ```
 
-## Demo (Comming soon)
+## Demo (Coming soon)
 ```
 source scripts/install.sh
 ```

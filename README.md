@@ -50,6 +50,13 @@ data
          └─ MANO_RIGHT.pkl
 ```
 
+### Preprocessing GRAB object
+GRAB objects have so many vertiecs. So we reduce the number of vertices to 4,000.
+```
+python preprocessing_grab_object.py
+```
+
+
 [Text description for Arctic](https://drive.google.com/file/d/18AtaBpQa9Z9pnQTkjObgOHjSSijT59gz/view?usp=sharing)
 
 ## Checkpoints (Comming soon)

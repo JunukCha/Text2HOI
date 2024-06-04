@@ -1,0 +1,9 @@
+model_name: "seq_cvae"
+latent_dim: 64
+cond_dim: 512
+encoder_layer_dims: [1, 512] 
+decoder_layer_dims: [512, 1] 
+final_sigmoid: True
+iteration: 1000
+lr: 0.001
+weight_path: checkpoints/${dataset.name}/${seq_cvae.model_name}.pth

@@ -1,0 +1,4 @@
+beta_1: 0.0001
+beta_T: 0.02
+T: 1000
+schedule_name: "cosine"

@@ -1,0 +1,16 @@
+tqdm
+easydict
+wandb
+chumpy
+pyrender
+moviepy
+matplotlib
+sentence-transformers
+pysdf
+hydra-core
+hydra
+pymeshlab
+omegaconf
+pandas
+smplx
+opencv-python

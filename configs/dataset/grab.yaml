@@ -1,0 +1,6 @@
+name: "grab"
+root: "data/grab"
+obj_root: "data/grab/obj_meshes"
+data_obj_pc_path: "data/grab/obj.pkl"
+flat_hand: True
+max_nframes: 150

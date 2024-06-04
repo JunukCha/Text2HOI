@@ -1,0 +1,9 @@
+checkpoints
+data
+demo_output
+outputs
+
+__pycache__
+*.pyc
+
+scripts

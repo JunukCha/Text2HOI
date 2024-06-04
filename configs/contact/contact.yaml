@@ -1,0 +1,12 @@
+model_name: contact_estimator
+latent_dim: 64
+cond_dim: 1601
+use_scale: True
+use_dice_loss: True
+decoder_layer_dims: [512, 256, 128, 1]
+final_sigmoid: True
+in_dim: 4
+test_iteration: 1
+iteration: 10000
+lr: 0.001
+weight_path: checkpoints/${dataset.name}/${contact.model_name}.pth

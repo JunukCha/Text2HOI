@@ -1,0 +1,6 @@
+name: "h2o"
+root: "data/h2o"
+obj_root: "data/h2o/object"
+data_obj_pc_path: "data/h2o/obj.pkl"
+flat_hand: True
+max_nframes: 150

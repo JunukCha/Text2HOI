@@ -1,0 +1,6 @@
+model_name: "pointfeat"
+global_feat: False
+feature_transform: False
+in_dim: 3
+resume: False
+weight_path: checkpoints/${dataset.name}/${pointfeat.model_name}.pth

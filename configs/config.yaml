@@ -1,0 +1,19 @@
+defaults:
+  - dataset: h2o
+  - clip: clip
+  - diffusion: diffusion
+  - mpnet: mpnet
+  - seq_cvae: seq_cvae
+  - pointfeat: pointfeat
+  - contact: contact
+  - texthom: texthom
+  - refiner: refiner
+test_text: ["Place cappuccino with right hand."]
+save_obj: False
+fps: 30
+nsamples: 1
+
+hydra:
+  run:
+    dir: outputs/${texthom.model_name}/
+  # output_subdir: null

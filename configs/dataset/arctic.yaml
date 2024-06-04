@@ -1,0 +1,6 @@
+name: "arctic"
+root: "data/arctic/downloads/data/raw_seqs"
+obj_root: "data/arctic/downloads/data/meta/object_vtemplates"
+data_obj_pc_path: "data/arctic/obj.pkl"
+flat_hand: False
+max_nframes: 150

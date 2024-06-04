@@ -1,0 +1,24 @@
+model_name: texthom
+hand_nfeats: 99 # 3 + 16*6
+obj_nfeats: 9 # 3 + 6
+latent_dim: 512
+ff_size: 1024
+num_layers: 8
+num_heads: 4
+dropout: 0.1
+activation: gelu
+clip_dim: 512
+obj_dim: 1024
+cond_mask_prob: 0.1
+use_cond_fc: True
+use_obj_scale_centroid: True
+use_frame_pos: True
+use_contact_feat: True
+use_inst_pos: True
+iteration: 30000
+lr: 0.0001
+lambda_simple: 1.0 # 0 1
+lambda_dist: 1.0
+lambda_ro: 1.0
+lambda_penet: 0.0
+weight_path: checkpoints/${dataset.name}/${texthom.model_name}.pth

@@ -68,7 +68,12 @@ python preprocessing_grab_object.py
 
 ## Checkpoints
 [Download](https://drive.google.com/drive/folders/1bfYF94-dVy-mA0n4cIRb_wI4ohPC6KK5?usp=sharing)
-
+```
+checkpoints
+├─ h2o
+├─ grab
+└─ arctic
+```
 
 ## Installation
 ```

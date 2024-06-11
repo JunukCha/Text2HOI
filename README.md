@@ -3,6 +3,77 @@ Official code of Text2HOI: Text-guided 3D Motion Generation for Hand-Object Inte
 [Arxiv paper](https://arxiv.org/pdf/2404.00562v2.pdf) / [Project page](.)
 
 ## Data
-[Text description for Arctic](https://drive.google.com/file/d/18AtaBpQa9Z9pnQTkjObgOHjSSijT59gz/view?usp=sharing)
+[H2O](https://h2odataset.ethz.ch/). 
 
-## Coming soon
+[GRAB](https://grab.is.tue.mpg.de/index.html). 
+
+[ARCTIC](https://github.com/zc-alexfan/arctic/blob/master/docs/data/README.md#download-full-arctic). 
+
+[MANO](https://mano.is.tue.mpg.de/).
+
+[obj.pkl](https://drive.google.com/drive/folders/1-bnfGdKPb-iqkjrO7kIJe72BmqUqDzyI?usp=sharing)
+
+```
+data
+├─ h2o
+│  ├─ obj.pkl
+│  └─ object
+│     ├─ book
+│     ├─ cappuccino
+│     ├─ chips
+│     ├─ cocoa
+│     ├─ espresso
+│     ├─ lotion
+│     ├─ milk
+│     └─ spray
+|
+├─ grab
+│  ├─ obj.pkl
+│  ├─ processed_object_meshes
+│  └─ contact_meshes
+│     ├─ airplane.ply
+│     ├─ alarmclock.ply
+│     ├─ apple.ply
+│     ├─ banana.ply
+│     ...
+|
+├─ arctic
+│  ├─ obj.pkl
+│  └─ downloads/data/meta/object_vtemplates
+│     ├─ box
+│     ├─ capsulemachine
+│     ├─ espressomachine
+│     ├─ ketchup
+│     ...
+│
+└─ mano
+   └─ mano_v1_2
+      └─ models
+         ├─ info.txt
+         ├─ LICENSE.txt
+         ├─ MANO_LEFT.pkl
+         └─ MANO_RIGHT.pkl
+```
+
+### Preprocessing GRAB object
+GRAB objects have so many vertiecs. So we reduce the number of vertices to 4,000.
+```
+python preprocessing_grab_object.py
+```
+
+## Checkpoints (Coming soon)
+```
+```
+
+## Installation (Coming soon)
+```
+source scripts/install.sh
+```
+
+## Demo (Coming soon)
+```
+source scripts/install.sh
+```
+
+## For Future Work
+[Text description for Arctic](https://drive.google.com/file/d/18AtaBpQa9Z9pnQTkjObgOHjSSijT59gz/view?usp=sharing)

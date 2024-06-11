@@ -3,15 +3,20 @@ Official code of Text2HOI: Text-guided 3D Motion Generation for Hand-Object Inte
 [Arxiv paper](https://arxiv.org/pdf/2404.00562v2.pdf) / [Project page](.)
 
 ## Data
-[H2O](https://h2odataset.ethz.ch/). 
+### H2O
+[Donwload](https://h2odataset.ethz.ch/). 
 
-[GRAB](https://grab.is.tue.mpg.de/index.html). 
+### GRAB
+[Donwload](https://grab.is.tue.mpg.de/index.html). 
 
-[ARCTIC](https://github.com/zc-alexfan/arctic/blob/master/docs/data/README.md#download-full-arctic). 
+### ARCTIC
+[Donwload](https://github.com/zc-alexfan/arctic/blob/master/docs/data/README.md#download-full-arctic). 
 
-[MANO](https://mano.is.tue.mpg.de/).
+### MANO
+[Donwload](https://mano.is.tue.mpg.de/).
 
-[obj.pkl](https://drive.google.com/drive/folders/1-bnfGdKPb-iqkjrO7kIJe72BmqUqDzyI?usp=sharing)
+### Object pickle file
+[Download](https://drive.google.com/drive/folders/1-bnfGdKPb-iqkjrO7kIJe72BmqUqDzyI?usp=sharing)
 
 ```
 data
@@ -61,16 +66,16 @@ GRAB objects have so many vertiecs. So we reduce the number of vertices to 4,000
 python preprocessing_grab_object.py
 ```
 
-## Checkpoints (Coming soon)
-```
-```
+## Checkpoints
+[Download](https://drive.google.com/drive/folders/1bfYF94-dVy-mA0n4cIRb_wI4ohPC6KK5?usp=sharing)
 
-## Installation (Coming soon)
+
+## Installation
 ```
 source scripts/install.sh
 ```
 
-## Demo (Coming soon)
+## Demo
 ```
 source scripts/install.sh
 ```

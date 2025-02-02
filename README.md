@@ -1,6 +1,6 @@
 # Text2HOI
 Official code of Text2HOI: Text-guided 3D Motion Generation for Hand-Object Interaction in CVPR 2024<br>
-[Arxiv paper](https://arxiv.org/pdf/2404.00562v2.pdf) / [Project page](.)
+[Arxiv paper](https://arxiv.org/pdf/2404.00562v2.pdf). / [Project page](https://junukcha.github.io/project/text2hoi/).
 
 ## Data
 ### H2O
@@ -12,11 +12,19 @@ Official code of Text2HOI: Text-guided 3D Motion Generation for Hand-Object Inte
 ### ARCTIC
 [Donwload](https://github.com/zc-alexfan/arctic/blob/master/docs/data/README.md#download-full-arctic). 
 
+[Text description for Arctic](https://drive.google.com/file/d/18AtaBpQa9Z9pnQTkjObgOHjSSijT59gz/view?usp=sharing).
+
 ### MANO
 [Donwload](https://mano.is.tue.mpg.de/).
 
 ### Object pickle file
-[Download](https://drive.google.com/drive/folders/1-bnfGdKPb-iqkjrO7kIJe72BmqUqDzyI?usp=sharing)
+[Download](https://drive.google.com/drive/folders/1-bnfGdKPb-iqkjrO7kIJe72BmqUqDzyI?usp=sharing).
+
+### Preprocessing GRAB object
+GRAB objects have so many vertiecs. So we reduce the number of vertices to 4,000.
+```
+python preprocessing_grab_object.py
+```
 
 ```
 data
@@ -60,12 +68,6 @@ data
          └─ MANO_RIGHT.pkl
 ```
 
-### Preprocessing GRAB object
-GRAB objects have so many vertiecs. So we reduce the number of vertices to 4,000.
-```
-python preprocessing_grab_object.py
-```
-
 ## Checkpoints
 [Download](https://drive.google.com/drive/folders/1bfYF94-dVy-mA0n4cIRb_wI4ohPC6KK5?usp=sharing)
 ```
@@ -85,5 +87,21 @@ source scripts/install.sh
 source scripts/install.sh
 ```
 
+## Train
+### Data preparation (preprocessing)
+```
+python preprocessing.py
+```
+
+### Train Text2HOI
+```
+source scripts/train/train_texthom.sh
+```
+
+### Train refiner
+```
+source scripts/train/train_refiner.sh
+```
+
 ## For Future Work
-[Text description for Arctic](https://drive.google.com/file/d/18AtaBpQa9Z9pnQTkjObgOHjSSijT59gz/view?usp=sharing)
+[Text description for Arctic](https://drive.google.com/file/d/18AtaBpQa9Z9pnQTkjObgOHjSSijT59gz/view?usp=sharing).

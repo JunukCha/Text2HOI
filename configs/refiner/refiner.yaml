@@ -22,4 +22,5 @@ contact_loss_type: l1
 lambda_simple: 1.0 # 0 1
 lambda_penet: 1.0
 lambda_contact: 5.0
+save_root: outputs/${refiner.model_name}
 weight_path: checkpoints/${dataset.name}/${refiner.model_name}.pth

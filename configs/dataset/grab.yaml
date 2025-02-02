@@ -1,6 +1,15 @@
 name: "grab"
 root: "data/grab"
 obj_root: "data/grab/processed_object_meshes"
+data_path: "data/grab/data.npz"
 data_obj_pc_path: "data/grab/obj.pkl"
+balance_weights_path: "data/grab/balance_weights.pkl"
+text_json: "data/grab/text.json"
+t2l_json: "data/grab/text_length.json"
+t2c_json: "data/grab/text_count.json"
 flat_hand: True
 max_nframes: 150
+data_ratio: 1
+augm: False
+data_num: 1335
+text_num: 276

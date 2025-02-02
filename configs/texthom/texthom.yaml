@@ -20,5 +20,5 @@ lr: 0.0001
 lambda_simple: 1.0 # 0 1
 lambda_dist: 1.0
 lambda_ro: 1.0
-lambda_penet: 0.0
+save_root: outputs/${texthom.model_name}
 weight_path: checkpoints/${dataset.name}/${texthom.model_name}.pth

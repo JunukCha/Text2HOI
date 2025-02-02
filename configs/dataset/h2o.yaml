@@ -1,6 +1,15 @@
 name: "h2o"
 root: "data/h2o"
 obj_root: "data/h2o/object"
+data_path: "data/h2o/data.npz"
 data_obj_pc_path: "data/h2o/obj.pkl"
+balance_weights_path: "data/h2o/balance_weights.pkl"
+text_json: "data/h2o/text.json"
+t2l_json: "data/h2o/text_length.json"
+t2c_json: "data/h2o/text_count.json"
 flat_hand: True
 max_nframes: 150
+data_ratio: 1
+augm: False
+data_num: 660
+text_num: 68

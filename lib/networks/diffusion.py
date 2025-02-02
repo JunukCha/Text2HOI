@@ -4,6 +4,13 @@ import math
 import torch
 import torch.nn as nn
 
+from lib.utils.loss import (
+    get_l2_loss, 
+    get_distance_map_loss, 
+    get_relative_orientation_loss, 
+)
+from lib.utils.proc_output import get_hand_obj_dist_map
+
 def betas_for_alpha_bar(num_diffusion_timesteps, alpha_bar, max_beta=0.999):
     """
     Create a beta schedule that discretizes the given alpha_t_bar function,
@@ -72,10 +79,16 @@ class Diffusion(nn.Module):
         self, model, x_lhand, x_rhand, 
         x_obj, obj_feat, 
         timesteps=None, enc_text=None, 
-        get_target=False, 
+        get_target=False, get_losses=False, 
         valid_mask_lhand=None, 
         valid_mask_rhand=None, 
         valid_mask_obj=None, 
+        ldist_map=None, 
+        rdist_map=None, 
+        obj_verts_org=None, 
+        loss_lambda_dict=None, 
+        dataset_name=None, 
+        obj_pc_top_idx=None
     ):
         assert enc_text is not None
         return_list = []
@@ -110,6 +123,19 @@ class Diffusion(nn.Module):
         return_list.append(pred_X0_lhand)
         return_list.append(pred_X0_rhand)
         return_list.append(pred_X0_obj)
+        if get_losses:
+            target_lhand = x_lhand.clone().detach()
+            target_rhand = x_rhand.clone().detach()
+            target_obj = x_obj.clone().detach()
+            total_loss = self.get_loss(
+                timesteps, 
+                pred_X0_lhand, pred_X0_rhand, pred_X0_obj, 
+                target_lhand, target_rhand, target_obj, 
+                valid_mask_lhand, valid_mask_rhand, valid_mask_obj, 
+                ldist_map, rdist_map, obj_verts_org, 
+                loss_lambda_dict, dataset_name, obj_pc_top_idx, 
+            )
+            return_list.append(total_loss)
 
         if get_target:
             return_list.append(epsilon_lhand)
@@ -117,6 +143,74 @@ class Diffusion(nn.Module):
             return_list.append(epsilon_obj)
             return_list.append(used_alpha_bars)
         return return_list
+    
+    def get_loss(
+            self, timesteps, 
+            pred_X0_lhand, pred_X0_rhand, pred_X0_obj, 
+            targ_lhand, targ_rhand, targ_obj, 
+            valid_mask_lhand, valid_mask_rhand, valid_mask_obj, 
+            ldist_map, rdist_map, obj_verts_org, 
+            loss_lambda_dict, dataset_name, obj_pc_top_idx=None, 
+        ):
+        assert (
+            valid_mask_lhand is not None and
+            valid_mask_rhand is not None and
+            valid_mask_obj is not None
+        )
+
+        # Loss weight
+        # loss_weight = self.alpha_bars[timesteps]
+
+        lambda_simple = loss_lambda_dict["lambda_simple"]
+        lambda_dist = loss_lambda_dict["lambda_dist"]
+        lambda_ro = loss_lambda_dict["lambda_ro"]
+        
+        # diffusion simple loss
+        if lambda_simple > 0:
+            simple_loss = get_l2_loss(
+                pred_X0_lhand, pred_X0_rhand, pred_X0_obj, 
+                targ_lhand, targ_rhand, targ_obj, 
+                valid_mask_lhand, valid_mask_rhand, valid_mask_obj, 
+            )
+        else:
+            simple_loss = torch.FloatTensor(1).fill_(0).cuda()
+
+        # Distance map loss
+        if lambda_dist > 0:
+            pred_ldist, pred_rdist \
+                = get_hand_obj_dist_map(
+                    pred_X0_lhand, 
+                    pred_X0_rhand, 
+                    pred_X0_obj, 
+                    obj_verts_org, 
+                    self.lhand_layer, 
+                    self.rhand_layer, 
+                    dataset_name, 
+                    obj_pc_top_idx, 
+                )
+            dist_map_loss = get_distance_map_loss(
+                pred_ldist, pred_rdist,
+                ldist_map, rdist_map, 
+            )
+        else:
+            dist_map_loss = torch.FloatTensor(1).fill_(0).cuda()
+
+        # Relative orientation loss
+        if lambda_ro > 0:
+            ro_loss = get_relative_orientation_loss(
+                pred_X0_lhand, pred_X0_rhand, pred_X0_obj, 
+                targ_lhand, targ_rhand, targ_obj, 
+                valid_mask_lhand, valid_mask_rhand, 
+            )
+        else:
+            ro_loss = torch.FloatTensor(1).fill_(0).cuda()
+        
+        total_loss = {
+            "simple_loss": simple_loss,
+            "dist_map_loss": dist_map_loss,
+            "ro_loss": ro_loss,
+        }
+        return total_loss
     
     @torch.no_grad()
     def sampling(

@@ -63,15 +63,15 @@ def main(config):
     lhand_layer = build_mano_aa(is_rhand=False, flat_hand=data_config.flat_hand).cuda()
     rhand_layer = build_mano_aa(is_rhand=True, flat_hand=data_config.flat_hand).cuda()
 
-    refiner = build_refiner(config)
+    refiner = build_refiner(config, test=True)
     texthom, diffusion \
-        = build_model_and_diffusion(config, lhand_layer, rhand_layer)
+        = build_model_and_diffusion(config, lhand_layer, rhand_layer, test=True)
     clip_model = load_and_freeze_clip(config.clip.clip_version)
     clip_model = clip_model.cuda()
     mpnet = build_mpnet(config)
-    seq_cvae = build_seq_cvae(config)
-    pointnet = build_pointnetfeat(config)
-    contact_estimator = build_contact_estimator(config)
+    seq_cvae = build_seq_cvae(config, test=True)
+    pointnet = build_pointnetfeat(config, test=True)
+    contact_estimator = build_contact_estimator(config, test=True)
     object_model = build_object_model(data_config.data_obj_pc_path)
     
     renderer = Renderer(device="cuda", camera=f"{dataset_name}_front")

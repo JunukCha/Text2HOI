@@ -49,3 +49,46 @@ def process_obj_result(obj_verts, obj_params, dataset_name, obj_top_idx=None):
         obj_pc_rotated = torch.einsum("tij,kj->tki", obj_rotmat, obj_verts)
     obj_verts_transformed = obj_pc_rotated+obj_trans.unsqueeze(1)
     return obj_verts_transformed
+
+def processe_params(hand_data_path, obj_data_path):
+    hand_data = np.load(hand_data_path, allow_pickle=True)
+    object_data = np.load(obj_data_path, allow_pickle=True)
+    left_hand_data = hand_data[()]["left"]
+    left_global_rot = left_hand_data["rot"]
+    left_pose = left_hand_data["pose"]
+    left_pose = np.concatenate([left_global_rot, left_pose], axis=1)
+    frame_cnt = left_pose.shape[0]
+    left_shape = left_hand_data["shape"]
+    matrix_size = (frame_cnt, ) + left_shape.shape
+    left_shape = np.full(matrix_size, left_shape)
+    left_trans = left_hand_data["trans"]
+
+    right_hand_data = hand_data[()]["right"]
+    right_global_rot = right_hand_data["rot"]
+    right_pose = right_hand_data["pose"]
+    right_pose = np.concatenate([right_global_rot, right_pose], axis=1)
+    frame_cnt = right_pose.shape[0]
+    right_shape = right_hand_data["shape"]
+    matrix_size = (frame_cnt, ) + right_shape.shape
+    right_shape = np.full(matrix_size, right_shape)
+    right_trans = right_hand_data["trans"]
+
+    hand_data = {
+        "left.pose": left_pose, 
+        "left.shape": left_shape, 
+        "left.trans": left_trans, 
+        "right.pose": right_pose, 
+        "right.shape": right_shape, 
+        "right.trans": right_trans, 
+    }
+    
+    object_angle = object_data[:, :1]
+    object_global_rot = object_data[:, 1:4]
+    object_trans = object_data[:, 4:]
+    object_data = {
+        "object.angle": object_angle,
+        "object.global_rot": object_global_rot,
+        "object.trans": object_trans,
+    }
+    return hand_data, object_data
+

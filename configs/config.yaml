@@ -8,10 +8,18 @@ defaults:
   - contact: contact
   - texthom: texthom
   - refiner: refiner
-test_text: ["Place cappuccino with right hand."]
+project_name: "texthom"
+batch_size: 64 # 64, 512
+shuffle: True
+drop_last: True
+num_workers: 4
+result_show_freq: 500
+save_pth_freq: 2000
+text: ["Place cappuccino with right hand."]
+save_demo: False
 save_obj: False
+balance_weights: True
 fps: 30
-nsamples: 1
 
 hydra:
   run:

@@ -1,6 +1,7 @@
-model_name: "pointfeat"
+model_name: pointfeat
 global_feat: False
 feature_transform: False
 in_dim: 3
 resume: False
+save_root: outputs/${pointfeat.model_name}
 weight_path: checkpoints/${dataset.name}/${pointfeat.model_name}.pth

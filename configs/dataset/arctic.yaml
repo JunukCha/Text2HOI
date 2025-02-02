@@ -1,6 +1,16 @@
 name: "arctic"
 root: "data/arctic/downloads/data/raw_seqs"
 obj_root: "data/arctic/downloads/data/meta/object_vtemplates"
+data_path: "data/arctic/data.npz"
+text_root: "/data/arctic/downloads/data/description"
 data_obj_pc_path: "data/arctic/obj.pkl"
+balance_weights_path: "data/arctic/balance_weights.pkl"
+text_json: "data/arctic/text.json"
+t2l_json: "data/arctic/text_length.json"
+t2c_json: "data/arctic/text_count.json"
 flat_hand: False
 max_nframes: 150
+data_ratio: 1
+augm: False
+data_num: 4597
+text_num: 161

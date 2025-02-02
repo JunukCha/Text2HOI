@@ -4,6 +4,12 @@ import torch
 import torch.nn as nn
 
 from lib.networks.texthom import TextHOM, InitFC, OutFC
+from lib.utils.loss import (
+    get_l2_loss, 
+    get_penetration_loss, 
+    get_joint_contact_loss, 
+)
+
 
 class Refiner(TextHOM):
     def __init__(
@@ -59,6 +65,68 @@ class Refiner(TextHOM):
         refined_rhand = init_rhand + offset_rhand
         return refined_lhand, refined_rhand
     
+    def get_loss(
+        self, input_lhand, input_rhand, refined_obj, 
+        targ_lhand, targ_rhand, 
+        obj_verts_org, lhand_obj_pc_cont, rhand_obj_pc_cont, 
+        lhand_layer, rhand_layer, 
+        ldist_map, rdist_map, 
+        dataset_name, 
+        valid_mask_lhand=None, 
+        valid_mask_rhand=None, 
+        lhand_cont_joint_mask=None, 
+        rhand_cont_joint_mask=None, 
+        lambda_dict=None, 
+        contact_loss_type="l2", 
+        obj_pc_top_idx=None, 
+    ):
+        refined_lhand, refined_rhand \
+            = self.forward(
+                input_lhand, input_rhand,  
+                valid_mask_lhand=valid_mask_lhand, 
+                valid_mask_rhand=valid_mask_rhand, 
+            )
+        
+        lambda_simple = lambda_dict["lambda_simple"]
+        lambda_penet = lambda_dict["lambda_penet"]
+        lambda_contact = lambda_dict["lambda_contact"]
+
+        if lambda_simple:
+            simple_loss = get_l2_loss(
+                pred_lhand=refined_lhand, pred_rhand=refined_rhand,
+                targ_lhand=targ_lhand, targ_rhand=targ_rhand,
+                mask_lhand=valid_mask_lhand, mask_rhand=valid_mask_rhand, 
+            )
+        else:
+            lambda_simple = torch.FloatTensor(1).fill_(0).cuda()
+        
+        if lambda_penet:
+            penet_loss = get_penetration_loss(
+                refined_lhand, refined_rhand, refined_obj, 
+                lhand_layer, rhand_layer, obj_verts_org, 
+                valid_mask_lhand, valid_mask_rhand, 
+                dataset_name, 
+                obj_pc_top_idx=obj_pc_top_idx, 
+            )
+        else:
+            penet_loss = torch.FloatTensor(1).fill_(0).cuda()
+        
+        if lambda_contact:
+            contact_loss = get_joint_contact_loss(
+                refined_lhand, refined_rhand, 
+                lhand_obj_pc_cont, rhand_obj_pc_cont, 
+                lhand_layer, rhand_layer,
+                lhand_cont_joint_mask, rhand_cont_joint_mask, 
+                loss_type=contact_loss_type
+            )
+        else:
+            contact_loss = torch.FloatTensor(1).fill_(0).cuda()
+            
+        losses_dict = {}
+        losses_dict["simple_loss"] = simple_loss
+        losses_dict["penet_loss"] = penet_loss
+        losses_dict["contact_loss"] = contact_loss
+        return refined_lhand, refined_rhand, losses_dict
 
 class PositionalEncoding(nn.Module):
     def __init__(self, d_model, dropout=0.1, max_len=5000):

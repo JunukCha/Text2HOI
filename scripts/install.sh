@@ -14,3 +14,5 @@ pip install -r requirements.txt
 
 python -m spacy download en_core_web_sm
 pip install git+https://github.com/openai/CLIP.git
+
+pip install numpy==1.23.5

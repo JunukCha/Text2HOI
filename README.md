@@ -26,6 +26,7 @@ GRAB objects have so many vertiecs. So we reduce the number of vertices to 4,000
 python preprocessing_grab_object.py
 ```
 
+### Folder Tree
 ```
 data
 ├─ h2o
@@ -98,7 +99,7 @@ python preprocessing.py
 source scripts/train/train_texthom.sh
 ```
 
-### Train refiner
+### Train Refiner
 ```
 source scripts/train/train_refiner.sh
 ```

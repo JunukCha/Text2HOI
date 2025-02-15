@@ -81,7 +81,8 @@ def merge_videos(
     return merged_video
     
 def render_videos(
-    renderer, lhand_verts, lhand_faces, 
+    renderer, 
+    lhand_verts, lhand_faces, 
     rhand_verts, rhand_faces, 
     obj_verts_tf, obj_faces, 
     is_lhand, is_rhand, 

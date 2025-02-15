@@ -76,28 +76,7 @@ def main(config):
     clip_model = clip_model.cuda()
     
     renderer = Renderer(device="cuda", camera=f"{dataset_name}_front")
-    renderer_side = Renderer(device="cuda", camera=f"{dataset_name}_side")
-    if dataset_name == "arctic":
-        hand_verts_T_lhand = lhand_layer(
-            hand_pose=-torch.FloatTensor(left_hand_mean).unsqueeze(0).cuda()
-        ).vertices
-        hand_verts_T_rhand = rhand_layer(
-            hand_pose=-torch.FloatTensor(right_hand_mean).unsqueeze(0).cuda()
-        ).vertices
-    else:
-        hand_verts_T_lhand = lhand_layer().vertices
-        hand_verts_T_rhand = rhand_layer().vertices
-    renderer_penet_lhand = Renderer_penet(
-        device="cuda", hand_verts_T=hand_verts_T_lhand.clone().detach(), 
-        hand_faces=torch.LongTensor(lhand_layer.faces.astype(np.float32)), 
-        is_right=False, img_size=256
-    )
-    renderer_penet_rhand = Renderer_penet(
-        device="cuda", hand_verts_T=hand_verts_T_rhand.clone().detach(), 
-        hand_faces=torch.LongTensor(rhand_layer.faces.astype(np.float32)), 
-        is_right=True, img_size=256
-    )
-    renderer_contact = Renderer_contact(device="cuda", img_size=256)
+    
     cur_loss = 9999
     best_loss = 9999
     best_epoch = 0
@@ -287,15 +266,11 @@ def main(config):
                                 )
                                 
                             merged_video = render_videos(
-                                renderer, renderer_side, 
-                                renderer_penet_lhand, renderer_penet_rhand, 
-                                renderer_contact, 
+                                renderer, 
                                 coarse_lhand_verts, lhand_faces, 
                                 coarse_rhand_verts, rhand_faces, 
-                                coarse_obj_verts_tf, obj_verts_text, obj_faces_text, 
-                                None, None, None, 
-                                point_set_text, est_contact_map_text,
-                                is_lhand_text, is_rhand_text, text_duration, 
+                                coarse_obj_verts_tf, obj_faces_text, 
+                                is_lhand_text, is_rhand_text, 
                             )
                             save_video(
                                 merged_video, fps=30, 

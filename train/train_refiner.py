@@ -78,11 +78,7 @@ def main(config):
     clip_model = clip_model.cuda()
 
     renderer = Renderer(device="cuda", camera=f"{dataset_name}_front")
-    renderer_side = Renderer(device="cuda", camera=f"{dataset_name}_side")
-    
-    renderer_penet_lhand = None
-    renderer_penet_rhand = None
-    renderer_contact = None
+
     cur_loss = 9999
     best_loss = 9999
     best_epoch = 0
@@ -306,16 +302,8 @@ def main(config):
                         refined_x_rhand_sampled = refined_x_rhand[text_idx][:text_duration]
                         refined_x_obj_sampled = refined_x_obj[text_idx][:text_duration]
 
-                        coarse_obj_verts_tf, coarse_lhand_verts, lhand_faces, \
-                        coarse_rhand_verts, rhand_faces = \
-                            proc_results(
-                                coarse_x_lhand_sampled, coarse_x_rhand_sampled, coarse_x_obj_sampled, 
-                                obj_verts_text, lhand_layer, rhand_layer, 
-                                is_lhand_text, is_rhand_text, 
-                                dataset_name, obj_top_idx_text
-                            )
-                        refined_obj_verts_tf, refined_lhand_verts, _, \
-                        refined_rhand_verts, _ = \
+                        refined_obj_verts_tf, refined_lhand_verts, lhand_faces, \
+                        refined_rhand_verts, rhand_faces = \
                             proc_results(
                                 refined_x_lhand_sampled, refined_x_rhand_sampled, refined_x_obj_sampled, 
                                 obj_verts_text, lhand_layer, rhand_layer, 
@@ -323,17 +311,12 @@ def main(config):
                                 dataset_name, obj_top_idx_text
                             )
                         
-                        merged_video, motion_video, motion_video_side, motion_video2, motion_video_side2, obj_cont_video \
-                        = render_videos(
-                            renderer, renderer_side, 
-                            renderer_penet_lhand, renderer_penet_rhand, 
-                            renderer_contact, 
-                            coarse_lhand_verts, lhand_faces, 
-                            coarse_rhand_verts, rhand_faces, 
-                            coarse_obj_verts_tf, obj_verts_text, obj_faces_text, 
-                            refined_lhand_verts, refined_rhand_verts, refined_obj_verts_tf, 
-                            point_set_text, est_contact_map_text,
-                            is_lhand_text, is_rhand_text, text_duration, 
+                        merged_video = render_videos(
+                            renderer, 
+                            refined_lhand_verts, lhand_faces, 
+                            refined_rhand_verts, rhand_faces, 
+                            refined_obj_verts_tf, obj_faces_text, 
+                            is_lhand_text, is_rhand_text, 
                         )
                         save_video(
                             merged_video, fps=30, 

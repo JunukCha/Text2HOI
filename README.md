@@ -85,7 +85,7 @@ source scripts/install.sh
 
 ## Demo
 ```
-source scripts/install.sh
+source scripts/demo.sh
 ```
 
 ## Train

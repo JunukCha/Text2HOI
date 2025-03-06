@@ -26,7 +26,7 @@ GRAB objects have so many vertiecs. So we reduce the number of vertices to 4,000
 python preprocessing_grab_object.py
 ```
 
-### Folder Tree
+### Folder Tree for Demo
 ```
 data
 ├─ h2o

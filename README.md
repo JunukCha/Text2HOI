@@ -89,6 +89,40 @@ source scripts/demo.sh
 ```
 
 ## Train
+### Folder Tree for Preprocessing
+```
+data
+├─ h2o
+│  ├─ object
+│  ├─ subject1
+│  ├─ subject2
+│  └─ subject3
+|
+├─ grab
+│  ├─ contact_meshes
+│  ├─ processed_object_meshes
+│  ├─ s1
+│  ├─ s2
+│  ├─ ...
+│  └─ s10
+│
+├─ arctic
+│  └─ downloads
+│     └─ data
+│        ├─ raw_seqs
+|        ├─ description ([download](https://drive.google.com/file/d/18AtaBpQa9Z9pnQTkjObgOHjSSijT59gz/view?usp=sharing))
+│        └─ meta
+│           └─ object_vtemplates
+│
+└─ mano
+   └─ mano_v1_2
+      └─ models
+         ├─ info.txt
+         ├─ LICENSE.txt
+         ├─ MANO_LEFT.pkl
+         └─ MANO_RIGHT.pkl
+```
+
 ### Data preparation (preprocessing)
 ```
 python preprocessing.py
